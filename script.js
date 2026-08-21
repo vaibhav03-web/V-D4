@@ -213,6 +213,8 @@ document.getElementById("btn-to-setup").addEventListener("click", () => {
 });
 
 /* ---------- Scene 5 -> 6 -> 7 (loading sequence) ---------- */
+const MS_PER_LOADING_MESSAGE = 1600; // ⬅ change this ONE number to speed up/slow down the loading texts
+
 document.getElementById("btn-ask-it").addEventListener("click", () => {
   showScene("loading");
   const textEl = document.getElementById("loading-text");
@@ -225,12 +227,12 @@ document.getElementById("btn-ask-it").addEventListener("click", () => {
     if (i < messages.length) {
       textEl.textContent = messages[i];
     }
-  }, 2000);
+  }, MS_PER_LOADING_MESSAGE);
 
   setTimeout(() => {
     clearInterval(interval);
     showScene("ask");
-  }, messages.length * 2000 + 300);
+  }, messages.length * MS_PER_LOADING_MESSAGE + 300);
 });
 
 /* ---------- Scene 7: the No button runs away ---------- */
