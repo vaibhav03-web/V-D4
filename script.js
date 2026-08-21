@@ -225,7 +225,7 @@ document.getElementById("btn-ask-it").addEventListener("click", () => {
     if (i < messages.length) {
       textEl.textContent = messages[i];
     }
-  }, 750);
+  }, 2000);
 
   setTimeout(() => {
     clearInterval(interval);
