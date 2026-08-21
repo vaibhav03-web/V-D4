@@ -633,7 +633,8 @@ body {
 
 @media (max-width: 480px) {
   .site-footer {
-    font-size: 0.75rem;
+    font-size: 1.1rem;
+    font-weight: 700;
     bottom: 12px;
   }
 }
