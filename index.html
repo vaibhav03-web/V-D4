@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>a little something for you 🌷</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ambient floating petals -->
+  <div class="petals" id="petals" aria-hidden="true"></div>
+
+  <div class="stage">
+
+    <!-- SCENE 1 : WELCOME -->
+    <section class="scene active" id="scene-welcome">
+      <p class="eyebrow">psst... come here for a sec</p>
+      <h1 class="display">i made you<br><span>a little thing</span></h1>
+      <p class="sub">it'll only take a minute. promise it's worth it 🌷</p>
+      <button class="btn-primary" id="btn-start">okay, show me</button>
+    </section>
+
+    <!-- SCENE 2 : QUESTION -->
+    <section class="scene" id="scene-question">
+      <p class="eyebrow">first, a very important question</p>
+      <h2 class="display">how's your day<br>been so far?</h2>
+      <div class="choice-row">
+        <button class="choice-card" data-mood="good">
+          <span class="choice-emoji">☀️</span>
+          <span>pretty good, actually</span>
+        </button>
+        <button class="choice-card" data-mood="okay">
+          <span class="choice-emoji">🌥️</span>
+          <span>eh, could be better</span>
+        </button>
+        <button class="choice-card" data-mood="tired">
+          <span class="choice-emoji">🌙</span>
+          <span>kinda tired, ngl</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SCENE 3 : MOOD RESPONSE -->
+    <section class="scene" id="scene-response">
+      <p class="eyebrow" id="response-eyebrow">noted.</p>
+      <h2 class="display" id="response-title">well, here's something</h2>
+      <p class="sub" id="response-sub">that might help a little</p>
+      <button class="btn-primary" id="btn-to-cards">continue</button>
+    </section>
+
+    <!-- SCENE 4 : FLIP CARDS -->
+    <section class="scene" id="scene-cards">
+      <p class="eyebrow">a few true things</p>
+      <h2 class="display">tap each one<br>to flip it 🪄</h2>
+
+      <div class="card-grid" id="card-grid"><!-- cards injected by JS --></div>
+
+      <button class="btn-primary btn-hidden" id="btn-to-ask">okay, one more thing...</button>
+    </section>
+
+    <!-- SCENE 5 : THE SETUP -->
+    <section class="scene" id="scene-setup">
+      <div class="setup-icon">💌</div>
+      <p class="eyebrow">okay so</p>
+      <h2 class="display">i wanna ask<br>you something</h2>
+      <p class="sub">no pressure. just... click when you're ready?</p>
+      <button class="btn-primary" id="btn-ask-it">ask me</button>
+    </section>
+
+    <!-- SCENE 6 : LOADING -->
+    <section class="scene" id="scene-loading">
+      <div class="loader-heart">
+        <svg viewBox="0 0 100 90" class="heart-svg">
+          <path class="heart-path" d="M50 85 C20 62, 4 42, 4 24 C4 8, 18 -2, 32 4 C42 8, 48 16, 50 22 C52 16, 58 8, 68 4 C82 -2, 96 8, 96 24 C96 42, 80 62, 50 85 Z"/>
+        </svg>
+      </div>
+      <p class="loading-text" id="loading-text">okay wait give me a sec...</p>
+    </section>
+
+    <!-- SCENE 7 : THE ASK -->
+    <section class="scene" id="scene-ask">
+      <div class="nervous-face" id="nervous-face">(⁄ ⁄•⁄ω⁄•⁄ ⁄)</div>
+      <h2 class="display big-ask">will you be<br><span>my girlfriend?</span></h2>
+      <p class="sub" id="ask-sub">take your time... i'll wait right here 🌷</p>
+
+      <div class="ask-buttons">
+        <button class="btn-yes" id="btn-yes">yes 💗</button>
+        <button class="btn-no" id="btn-no">no</button>
+      </div>
+    </section>
+
+    <!-- SCENE 8 : YES -->
+    <section class="scene" id="scene-yes">
+      <div class="confetti" id="confetti" aria-hidden="true"></div>
+      <div class="setup-icon big-emoji">🎉</div>
+      <h2 class="display">she said yes!!</h2>
+      <p class="sub" id="yes-sub">best decision you've made all week. i'm smiling so hard right now 🥹💗</p>
+      <p class="tiny-note">(i'm gonna go tell everyone)</p>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
