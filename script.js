@@ -230,7 +230,7 @@ document.getElementById("btn-ask-it").addEventListener("click", () => {
   setTimeout(() => {
     clearInterval(interval);
     showScene("ask");
-  }, messages.length * 750 + 300);
+  }, messages.length * 2000 + 300);
 });
 
 /* ---------- Scene 7: the No button runs away ---------- */
