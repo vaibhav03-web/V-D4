@@ -32,6 +32,31 @@ const CONFIG = {
     "i'll be so sad",
     "reconsider? 👉👈"
   ],
+
+  // The Letter Box — each envelope on the grid. Edit label/emoji/body freely.
+  // In body text, wrap any phrase in **double asterisks** to highlight it (like a sticky-note style emphasis).
+  letters: [
+    {
+      emoji: "🥺",
+      label: "Open when you feel stressed...",
+      body: "Heyyy baby ❤️ I know you're stressed right now, but please remember you don't have to carry everything alone. Give that pretty little brain a break, okay? 🥺 Come here, let me take at least 1% of your stress… I'll handle the other 99% with unlimited hugs, kisses, and annoying love 😂❤️ You're stronger than this moment, and I'm right here with you. Now breathe, my love. Everything will be okay. 🫶🥹",
+    },
+    {
+      emoji: "💖",
+      label: "Open when you miss me...",
+      body: "**Miss you too!**\nIt's kinda weird not being able to just hang out, but honestly, I'm so grateful for our bond. Let's get on a call or play something soon, okiee? Miss our random chaos a little too much. 🎀❤️",
+    },
+    {
+      emoji: "🤗",
+      label: "Open when you need a hug...",
+      body: "Come here, baby 🥺❤️ I know you need a hug right now, so imagine me pulling you into the tightest, warmest hug and not letting go anytime soon. 🤗❤️ And honestly… if I were there, you'd have to fight me to escape my arms. 😭😂💕",
+    },
+    {
+      emoji: "😆",
+      label: "Open when you need a laugh...",
+      body: "Remember the cute little chaos we've created over these 8 years. 😂 If I look back, I genuinely wonder how we survived each other because we were basically two professional-level idiots with zero sense and unlimited confidence. But look at us now… somehow we grew up, started taking responsibilities, and actually learned to stand by each other. ❤️ From \"let's do something stupid\" to \"don't worry, I've got your back\" — what a character development. 😂❤️ 8 years later, still together… still childish… just with more responsibilities and slightly better decision-making skills. 😭😂",
+    },
+  ],
 };
 /* ================================================ */
 
@@ -40,6 +65,7 @@ const scenes = {
   question: document.getElementById("scene-question"),
   response: document.getElementById("scene-response"),
   cards: document.getElementById("scene-cards"),
+  letters: document.getElementById("scene-letters"),
   setup: document.getElementById("scene-setup"),
   loading: document.getElementById("scene-loading"),
   ask: document.getElementById("scene-ask"),
@@ -127,7 +153,7 @@ CONFIG.compliments.forEach((item, i) => {
     if (!card.classList.contains("flipped")) {
       flippedCount++;
       if (flippedCount === CONFIG.compliments.length) {
-        const btn = document.getElementById("btn-to-ask");
+        const btn = document.getElementById("btn-to-letters");
         btn.classList.add("show");
       }
     }
@@ -136,8 +162,53 @@ CONFIG.compliments.forEach((item, i) => {
   cardGrid.appendChild(card);
 });
 
-/* ---------- Scene 4 -> 5 ---------- */
-document.getElementById("btn-to-ask").addEventListener("click", () => {
+/* ---------- Scene 4 -> 4.5 (Letter Box) ---------- */
+document.getElementById("btn-to-letters").addEventListener("click", () => {
+  showScene("letters");
+});
+
+/* ---------- Letter Box: build envelopes ---------- */
+const envelopeGrid = document.getElementById("envelope-grid");
+
+CONFIG.letters.forEach((letter, i) => {
+  const env = document.createElement("div");
+  env.className = "envelope";
+  env.innerHTML = `
+    <span class="envelope-emoji">${letter.emoji}</span>
+    <span class="envelope-label">${letter.label}</span>
+  `;
+  env.addEventListener("click", () => openLetter(letter));
+  envelopeGrid.appendChild(env);
+});
+
+/* ---------- Letter Box: modal open/close ---------- */
+const letterOverlay = document.getElementById("letter-overlay");
+const letterLabel = document.getElementById("letter-label");
+const letterBody = document.getElementById("letter-body");
+const letterClose = document.getElementById("letter-close");
+
+function openLetter(letter) {
+  letterLabel.textContent = letter.label;
+  // convert **highlight** markers into styled spans
+  const formatted = letter.body.replace(/\*\*(.+?)\*\*/g, '<span class="highlight">$1</span>');
+  letterBody.innerHTML = formatted;
+  letterOverlay.classList.add("open");
+}
+
+function closeLetter() {
+  letterOverlay.classList.remove("open");
+}
+
+letterClose.addEventListener("click", closeLetter);
+letterOverlay.addEventListener("click", (e) => {
+  if (e.target === letterOverlay) closeLetter();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeLetter();
+});
+
+/* ---------- Scene 4.5 -> 5 ---------- */
+document.getElementById("btn-to-setup").addEventListener("click", () => {
   showScene("setup");
 });
 
@@ -244,3 +315,51 @@ function launchConfetti() {
     container.innerHTML = "";
   }, 4000);
 }
+
+/* ---------- background music: soft, low-volume, fades in on first interaction ---------- */
+const bgMusic = document.getElementById("bg-music");
+const musicToggle = document.getElementById("music-toggle");
+const TARGET_VOLUME = 0.25; // keep it gentle in the background
+let musicStarted = false;
+let musicMuted = false;
+
+function fadeInMusic() {
+  bgMusic.volume = 0;
+  bgMusic.play().catch(() => {
+    // autoplay might be blocked; it'll start on the next click instead
+  });
+  let vol = 0;
+  const step = setInterval(() => {
+    vol += 0.02;
+    if (vol >= TARGET_VOLUME) {
+      bgMusic.volume = TARGET_VOLUME;
+      clearInterval(step);
+    } else {
+      bgMusic.volume = vol;
+    }
+  }, 120);
+}
+
+function startMusicOnce() {
+  if (musicStarted) return;
+  musicStarted = true;
+  fadeInMusic();
+  musicToggle.textContent = "🔊";
+}
+
+// start softly the moment she begins the experience
+document.getElementById("btn-start").addEventListener("click", startMusicOnce, { once: true });
+// safety net: also start on any first click anywhere, in case autoplay rules are strict
+document.body.addEventListener("click", startMusicOnce, { once: true });
+
+musicToggle.addEventListener("click", () => {
+  musicMuted = !musicMuted;
+  if (musicMuted) {
+    bgMusic.volume = 0;
+    musicToggle.textContent = "🔇";
+  } else {
+    bgMusic.volume = TARGET_VOLUME;
+    musicToggle.textContent = "🔊";
+  }
+  if (!musicStarted) startMusicOnce();
+});
