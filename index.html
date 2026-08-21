@@ -19,7 +19,7 @@
     <!-- SCENE 1 : WELCOME -->
     <section class="scene active" id="scene-welcome">
       <p class="eyebrow">psst... come here for a sec</p>
-     <h1 class="display">Hey Mansvi<br><span>i made you</span><br><span>a little thing</span></h1>
+      <h1 class="display">Hey Mansvi,<br>i made you<br><span>a little thing</span></h1>
       <p class="sub">it'll only take a minute. promise it's worth it 🌷</p>
       <button class="btn-primary" id="btn-start">okay, show me</button>
     </section>
@@ -59,8 +59,28 @@
 
       <div class="card-grid" id="card-grid"><!-- cards injected by JS --></div>
 
-      <button class="btn-primary btn-hidden" id="btn-to-ask">okay, one more thing...</button>
+      <button class="btn-primary btn-hidden" id="btn-to-letters">okay, one more thing...</button>
     </section>
+
+    <!-- SCENE 4.5 : LETTER BOX -->
+    <section class="scene" id="scene-letters">
+      <p class="eyebrow">before i ask you anything</p>
+      <h2 class="display">The Letter Box</h2>
+      <p class="sub">a few notes for you, for any mood. pick one to open!</p>
+
+      <div class="envelope-grid" id="envelope-grid"><!-- envelopes injected by JS --></div>
+
+      <button class="btn-primary" id="btn-to-setup">okay, now ask me</button>
+    </section>
+
+    <!-- LETTER MODAL (overlay, shared by all envelopes) -->
+    <div class="letter-overlay" id="letter-overlay">
+      <div class="letter-card">
+        <button class="letter-close" id="letter-close" aria-label="close letter">✕</button>
+        <p class="letter-label" id="letter-label"></p>
+        <p class="letter-body" id="letter-body"></p>
+      </div>
+    </div>
 
     <!-- SCENE 5 : THE SETUP -->
     <section class="scene" id="scene-setup">
@@ -97,12 +117,15 @@
     <section class="scene" id="scene-yes">
       <div class="confetti" id="confetti" aria-hidden="true"></div>
       <div class="setup-icon big-emoji">🎉</div>
-      <h2 class="display"><br><span>Mansvi</span> You finally said yes!!</h2>
-      <p class="sub" id="yes-sub">It's the best decision you've made all week. i'm smiling so hard right now. You don't know what it means to me. 🥹💗</p>
+      <h2 class="display">Mansvi, you<br>finally said Yes.</h2>
+      <p class="sub" id="yes-sub">best decision you've made all week. i'm smiling so hard right now 🥹💗<br>you don't know what it means to me.</p>
       <p class="tiny-note">(i'm gonna go tell everyone)</p>
     </section>
 
   </div>
+
+  <audio id="bg-music" src="Lets_Talk_Do_Gallan_1.mp3" loop preload="auto"></audio>
+  <button class="music-toggle" id="music-toggle" aria-label="toggle music">🔈</button>
 
   <script src="script.js"></script>
 </body>
